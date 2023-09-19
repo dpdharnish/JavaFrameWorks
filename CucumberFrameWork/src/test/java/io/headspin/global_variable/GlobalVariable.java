@@ -12,7 +12,7 @@ public class GlobalVariable {
     public static String UDID = getConfigProperty("UDID");
     public static String Session_id;
     public static String status = "Failed";
-    public static Map<String,Object> session_data = new HashMap<>();
+    public static Map<String,String> session_data = new HashMap<>();
     public static String Testname = getConfigProperty("testname");
 
     public static String KPI_LABEL_CATEGORY = getConfigProperty("CATEGORY");

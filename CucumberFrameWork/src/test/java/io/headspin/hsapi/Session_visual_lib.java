@@ -3,6 +3,7 @@ import java.util.*;
 import static io.headspin.global_variable.GlobalVariable.*;
 public class Session_visual_lib {
     hsAPI API;
+
     public void run_record_session_info() {
         Access_token = get_access_token();
         API = new hsAPI();
@@ -19,7 +20,7 @@ public class Session_visual_lib {
     private void add_kpi_labels() {
         for (String labelKey : kpiLabels.keySet()) {
             System.out.println();
-            Map<String, Long> label = kpiLabels.get(labelKey);
+            Map<String, Long> label = kpiLabels.get(labelKey); //label={start:<time>,end:<time>}
             Long label_start_time;
             Long label_end_time;
             if (label.get("start")>0 && label.get("end")>0) {
@@ -101,6 +102,7 @@ public class Session_visual_lib {
         }
 //        System.out.println(kpiLabels);
     }
+
     public Map<String, Object> get_screenchange_list_divide(String labelKey, Long labelStartTime, Long labelEndTime, Long startSensitivity, Long endSensitivity, Long videoBox) {
         ArrayList<Object> screen_change_list = new ArrayList<>();
         int sn = 0;
@@ -110,6 +112,7 @@ public class Session_visual_lib {
         System.out.println("output"+list);
         return null;
     }
+
     private void wait_for_session_video_becomes_available() {
         long durationInSeconds = 600; // 600 seconds or 10 minutes
         long endTimeMillis = System.currentTimeMillis() + (durationInSeconds * 1000);
@@ -125,10 +128,11 @@ public class Session_visual_lib {
     public void get_video_start_timestamp() {
         Boolean wait_until_capture_complete = true;
         long durationInSeconds = 600; // 600 seconds or 10 minutes
-        long endTimeMillis = System.currentTimeMillis() + (durationInSeconds * 1000);
+        long endTimeMillis = System.currentTimeMillis() + (durationInSeconds * 1000); //9.12
         if (wait_until_capture_complete) {
             while (System.currentTimeMillis() < endTimeMillis) {
                 Map<String, Object> capture_timestamp = API.get_capture_timestamp();
+//                System.out.println("get_video_start_timestamp "+capture_timestamp);
                 if (capture_timestamp.containsKey("capture-complete")) {
                     video_start_timestamp = (Double) capture_timestamp.get("capture-started")*1000;
                     System.out.println("capture_timestamp: "+capture_timestamp);
@@ -156,11 +160,15 @@ public class Session_visual_lib {
             long st = innerMap.get("start");
             long et = innerMap.get("end");
             long r = et-st;
+            session_data.put(outerKey, String.valueOf(r));
             description+= outerKey + " : " + r + ",\n";
         }
 //        System.out.println("description is "+description);
-        String response2= API.update_session_name_and_description(description);
+        API.update_session_name_and_description(description);
 //        System.out.println("description "+response2);
+        API.add_session_tags();
+        System.out.println(session_data);
+        System.out.println("Tag is been added");
     }
 
     public Map<String, Object> get_general_session_data() {

@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import com.fasterxml.jackson.core.type.TypeReference;
+import io.cucumber.java.hu.Ha;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +26,46 @@ public class hsAPI {
 //**********************************************************************************************************************
     public hsAPI() {
         headers.put("Authorization", "Bearer " + Access_token); //{"Authorization":"Bearer <access token>"}
+        try {
+            // Create the URL for the POST request
+            URL url = new URL(device_list_url);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                connection.setRequestProperty(entry.getKey(), entry.getValue());
+            }
+            int responseCode = connection.getResponseCode();
+//            String responseBody = connection.getResponseMessage();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Read and parse the JSON response into a Map
+                ObjectMapper objectMapper = new ObjectMapper();
+                TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {};
+                Map<String, Object> responseMap = objectMapper.readValue(connection.getInputStream(), typeRef);
+                List<Map<String, Object>> devices = (List<Map<String, Object>>) responseMap.get("devices");
+                boolean isDesiredDevice = false;
+                for (Map<String, Object> device : devices) {
+                    String device_os = (String) device.get("device_type");
+                    if ("android".equals(device_os) && UDID.equals(device.get("serial"))) {
+                        isDesiredDevice = true;
+                    } else if ("ios".equals(device_os) && UDID.equals(device.get("device_id"))) {
+                        isDesiredDevice = true;
+                    }
+                    if (isDesiredDevice) {
+                        session_data.put("device_hostname",(String) device.get("hostname"));
+                        session_data.put("device_address",UDID + "@" + (String) device.get("hostname"));
+                        session_data.put("device_os",(String) device.get("device_type"));
+//                        session_data.put("device_details",device);
+                        session_data.put("network_type", (String) device.get("network_type"));
+                        session_data.put("manufacturer", (String) device.get("manufacturer"));
+                        System.out.println("session_data: "+session_data);
+                        break;
+                    }
+                }
+//                return responseMap;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -301,6 +343,61 @@ public class hsAPI {
             // Handle exceptions
             return null; // Or handle the error appropriately
         }
+    }
+
+    //add_session_tags
+//**********************************************************************************************************************
+    public void add_session_tags() {
+        String request_url = "https://api-dev.headspin.io/v0/sessions/tags/"+Session_id;
+        StringBuilder payload = new StringBuilder();
+        payload.append("{\"tags\": [");
+        for (Map.Entry<String, String> entry : session_data.entrySet()) {
+            payload.append("{"); // Start of individual object
+            payload.append("\"").append(entry.getKey()).append("\": \"").append(entry.getValue()).append("\"");
+            payload.append("},"); // End of individual object with a comma
+        }
+        if (!session_data.isEmpty()) {
+            payload.deleteCharAt(payload.length() - 1); // Remove the trailing comma
+        }
+        payload.append("]}");
+        System.out.println(payload.toString());
+        String responsiveness = null;
+        try {
+            URL url = new URL(request_url);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                connection.setRequestProperty(entry.getKey(), entry.getValue());
+            }
+//            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/json");
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = payload.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+            int responseCode = connection.getResponseCode();
+            responsiveness = connection.toString();
+            int tagresponseCode = connection.getResponseCode();
+
+            // Check if the request was successful (HTTP status code 200)
+            if (tagresponseCode == 200) {
+                System.out.println("Tags added successfully.");
+            } else {
+                System.err.println("HTTP Request failed with response code: " + tagresponseCode);
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    System.out.println(line);
+                }
+            }
+            // Close the connection
+            connection.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(responsiveness);
+        }
+
     }
 
 
