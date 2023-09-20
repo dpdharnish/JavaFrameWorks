@@ -18,6 +18,10 @@ public class kpi_names {
         kpiLabels.put("Login_page_load_time", new HashMap<>());
         kpiLabels.get("Login_page_load_time").put("start", 0L);
         kpiLabels.get("Login_page_load_time").put("end", 0L);
+        kpiLabels.get("Login_page_load_time").put("segment_start", 0L);
+        kpiLabels.get("Login_page_load_time").put("segment_end", 1L);
+        kpiLabels.get("Login_page_load_time").put("start_sensitivity", 0.954f);
+        kpiLabels.get("Login_page_load_time").put("end_sensitivity", 0.997f);
         //Logout_page_load_time kpi
         kpiLabels.put("Logout_page_load_time", new HashMap<>());
         kpiLabels.get("Logout_page_load_time").put("start", 0L);

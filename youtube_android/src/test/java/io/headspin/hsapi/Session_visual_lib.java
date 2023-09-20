@@ -1,8 +1,15 @@
 package io.headspin.hsapi;
-import java.util.*;
+
+import io.headspin.hsapi.hsAPI;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static io.headspin.global_variable.GlobalVariable.*;
+
 public class Session_visual_lib {
     hsAPI API;
 
@@ -32,7 +39,7 @@ public class Session_visual_lib {
                 }
                 label_end_time = (long) ((long) label.get("end")-video_start_timestamp);
                 API.add_label(labelKey,"desired region",label_start_time,label_end_time);
-                System.out.println(labelKey+": label id add for the desired region");
+                System.out.println(labelKey+" : label id add for the desired region");
                 // till here its working
                 float start_sensitivity = 0.935F;
                 float end_sensitivity = 0.975F;
@@ -46,11 +53,12 @@ public class Session_visual_lib {
                 if (label.containsKey("video_box")) {
                     video_box = Float.valueOf( (float) label.get("video_box"));
                 }
-                long new_label_start_time = label_start_time;
-                long new_label_end_time = label_end_time;
+                long new_label_start_time=label_start_time;
+                long new_label_end_time=label_end_time;
+                System.out.println("new_label_start_time1 "+label_end_time);
                 if ((label.containsKey("segment_start")) && (label.containsKey("segment_end"))) {
                     List screen_change_list = get_screenchange_list_divide(labelKey,label_start_time,label_end_time,start_sensitivity,end_sensitivity,video_box);
-                    System.out.println("screen change list"+screen_change_list); //[12334456,]
+                    System.out.println("screen change list "+screen_change_list); //[12334456,]
                     try {
                         if (screen_change_list.size()>0) {
                             //content need to be added
@@ -61,9 +69,9 @@ public class Session_visual_lib {
                             new_label_start_time = s.longValue();
                             new_label_end_time = e.longValue();
                         }
-
                     } catch (Exception e) {
                         //content need to be added
+                        e.printStackTrace();
                     }
 
                 }
@@ -119,13 +127,13 @@ public class Session_visual_lib {
         int segmentTimeStep = 100;
         long new_label_start_time = 0, new_label_end_time = 0;
         Map<String,Object> list = API.get_pageloadtime(Session_id,(labelKey+sn),labelStartTime,labelEndTime,startSensitivity,endSensitivity,videoBox);
-        System.out.println("output"+list);
+        System.out.println("output of get_screenchange "+list);
         if (list.containsKey("page_load_regions") && !(list.get("page_load_regions").toString().contains("error_msg"))) {
             while (true) {
                 List<Map<String, Object>> pageLoadRegions = (List<Map<String, Object>>) list.get("page_load_regions");
                 Integer start_time= (Integer) pageLoadRegions.get(0).get("start_time");
                 Integer end_time=(Integer) pageLoadRegions.get(0).get("end_time");
-                System.out.println(start_time+"start_time");
+                System.out.println(start_time+" start_time");
                 screen_change_list.add(start_time.longValue());
                 screen_change_list.add(end_time.longValue());
                 sn++;
@@ -156,7 +164,7 @@ public class Session_visual_lib {
 
         }
         screen_change_list = (List) screen_change_list.stream().distinct().sorted().collect(Collectors.toList());
-        System.out.println(labelKey+ " " + screen_change_list);
+        System.out.println(labelKey+ "screen_change " + screen_change_list);
         return screen_change_list;
     }
 

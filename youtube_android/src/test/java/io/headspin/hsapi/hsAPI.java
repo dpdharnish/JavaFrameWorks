@@ -1,20 +1,22 @@
 package io.headspin.hsapi;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import com.fasterxml.jackson.core.type.TypeReference;
-import io.cucumber.java.hu.Ha;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import static io.headspin.global_variable.GlobalVariable.*;
+
 // make sure Access_token,Session_id,status,Testname,KPI_LABEL_CATEGORY,kpiLabels,video_start_timestamp,session_data,Appium_Url
 public class hsAPI {
     String device_list_url = "https://api-dev.headspin.io/v0/devices";

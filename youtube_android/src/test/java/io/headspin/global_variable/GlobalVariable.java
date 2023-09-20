@@ -1,9 +1,12 @@
 package io.headspin.global_variable;
+
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import static io.headspin.basicFunctionalities.PropertyFileReader.getConfigProperty;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import static io.headspin.basicFunctionalities.PropertyFileReader.getConfigProperty;
 
 public class GlobalVariable {
     public static AppiumDriver Appium_Driver;

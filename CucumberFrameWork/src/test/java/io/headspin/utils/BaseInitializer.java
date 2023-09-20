@@ -17,7 +17,7 @@ public class BaseInitializer {
         DesiredCapabilities cap = new DesiredCapabilities();
 
         cap.setCapability(MobileCapabilityType.PLATFORM_NAME, getConfigProperty("PLATFORM_NAME"));
-        //  cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, "15.4");
+//        cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, "15.4");
         cap.setCapability(MobileCapabilityType.DEVICE_NAME, "SM-M317F");
         cap.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Uiautomator2");
         cap.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
