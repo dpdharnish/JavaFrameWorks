@@ -2,7 +2,6 @@ package io.headspin.pages;
 
 import io.headspin.hsapi.Session_visual_lib;
 import io.headspin.hsapi.kpi_names;
-
 import java.net.MalformedURLException;
 
 import static io.headspin.basicFunctionalities.PropertyFileReader.getConfigProperty;
