@@ -1,4 +1,5 @@
 package io.headspin.hsapi;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -214,11 +215,6 @@ public class Session_visual_lib {
             long r = et-st;
             session_data.put(outerKey, String.valueOf(r));
             description+= outerKey + " : " + r + ",\n";
-        }
-        for(Map.Entry<String,String> datades :session_data.entrySet()) {
-            String Key = datades.getKey();
-            String Value = datades.getValue();
-            description+= Key + " : " + Value + ",\n";
         }
 //        System.out.println("description is "+description);
         API.update_session_name_and_description(description);
