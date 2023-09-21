@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.cucumber.java.hu.Ha;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
