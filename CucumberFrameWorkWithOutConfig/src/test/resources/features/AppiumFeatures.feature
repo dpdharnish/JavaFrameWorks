@@ -1,5 +1,4 @@
 Feature: Youtube Test
-
   @Appium
   Scenario Outline: Get Video Time User Flow
     Given Launch the app "<udid>" and "<AppiumURL>"

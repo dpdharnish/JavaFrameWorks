@@ -26,14 +26,12 @@ public class BaseInitializer {
         desiredCapabilities.setCapability("headspin:capture.video",true);
         desiredCapabilities.setCapability("headspin:testName",testname);
         desiredCapabilities.setCapability("noReset", true);
-//        desiredCapabilities.setCapability("autoLaunch",false);
         URL url = new URL(AppiumURL);
         //global variable assignment
         Testname = testname;
         KPI_LABEL_CATEGORY = "kpiYoutube";
         Appium_Url = AppiumURL;
         driver = new AppiumDriver(url, desiredCapabilities);
-//        driver.launchApp();
         UDID = udid;
         Appium_Driver = driver;
         Session_id = String.valueOf(Appium_Driver.getSessionId()); //String class

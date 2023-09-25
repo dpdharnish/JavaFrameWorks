@@ -8,6 +8,6 @@ import io.cucumber.testng.CucumberOptions;
         glue = "io.headspin.steps",
         tags = "@Appium"
 )
-public class Runner extends AbstractTestNGCucumberTests {
+public class RunnerTest extends AbstractTestNGCucumberTests {
 
 }

@@ -5,7 +5,7 @@ import io.headspin.hsapi.kpi_names;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import static io.headspin.hsapi.GlobalVariable.*;
-public class Confest {
+public class ConfestTest {
     @BeforeTest
     public void SetUp() {
         kpi_names k = new kpi_names();

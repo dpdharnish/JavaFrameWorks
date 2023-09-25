@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="/Users/dharnishdp/Automation_java/CucumberFrameWorkWithOutConfig">
         <classes>
-            <class name="io.headspin.runner.Runner"></class>
+            <class name="io.headspin.runner.RunnerTest"></class>
         </classes>
     </test>
 </suite>

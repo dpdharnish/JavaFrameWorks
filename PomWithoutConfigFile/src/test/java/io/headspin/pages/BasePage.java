@@ -26,50 +26,18 @@ public class BasePage {
 
     }
     public static void waitForElementAndClick(By elementToWaitFor) {
-        try
-        {
             webdriverWait().until(ExpectedConditions.presenceOfElementLocated(elementToWaitFor)).click();
-        }
-        catch(Exception ex)
-        {
-            System.out.println(ex);
-            System.out.println("No Such Element Present");
-        }
     }
     public static void waitForElementAndSendKeys(By elementToWaitFor, String message) {
-        try
-        {
-            webdriverWait().until(ExpectedConditions.presenceOfElementLocated(elementToWaitFor)).sendKeys(message);
-        }
-        catch(Exception ex)
-        {
-            System.out.println(ex);
-            System.out.println("No Such Element Present");
-        }
+        webdriverWait().until(ExpectedConditions.presenceOfElementLocated(elementToWaitFor)).sendKeys(message);
     }
     public static String waitForElementAndGetText(By elementToWaitFor) {
         String output_message = null;
-        try
-        {
-            output_message = webdriverWait().until(ExpectedConditions.presenceOfElementLocated(elementToWaitFor)).getText();
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex);
-            System.out.println("No Such Element Present");
-        }
+        output_message = webdriverWait().until(ExpectedConditions.presenceOfElementLocated(elementToWaitFor)).getText();
         return output_message;
     }
     public static void waitForElementPresentAndConfirmURL(String url) {
-        try
-        {
             webdriverWait().until(ExpectedConditions.urlToBe(url));
-        }
-        catch(Exception ex)
-        {
-            System.out.println(ex);
-            System.out.println("URL Didn't Match");
-        }
     }
     public static void waitForSpecificTime(long numOfSeconds) {
         try

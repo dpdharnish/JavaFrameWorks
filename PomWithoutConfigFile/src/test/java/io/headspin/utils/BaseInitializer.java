@@ -1,5 +1,4 @@
 package io.headspin.utils;
-
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import static io.headspin.hsapi.GlobalVariable.*;
@@ -12,7 +11,7 @@ public class BaseInitializer {
         String appPackage = "com.google.android.youtube";
         String appActivity = "com.google.android.apps.youtube.app.watchwhile.WatchWhileActivity";
         String platformName = "android";
-        String deviceName = "SM-M526B";
+//        String deviceName = "SM-M526B";
         String testname = "Pom_Youtube_Java";
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("automationName","uiautomator2");
@@ -20,7 +19,7 @@ public class BaseInitializer {
         desiredCapabilities.setCapability("appPackage",appPackage);
         desiredCapabilities.setCapability("appActivity",appActivity);
         desiredCapabilities.setCapability("platformName",platformName);
-        desiredCapabilities.setCapability("deviceName",deviceName);
+//        desiredCapabilities.setCapability("deviceName",deviceName);
         desiredCapabilities.setCapability("headspin:capture.video",true);
         desiredCapabilities.setCapability("headspin:testName",testname);
         desiredCapabilities.setCapability("noReset", true);

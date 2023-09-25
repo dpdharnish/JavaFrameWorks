@@ -268,5 +268,4 @@ public class Session_visual_lib {
         }
         return "Number not found in the URL.";
     }
-
 }

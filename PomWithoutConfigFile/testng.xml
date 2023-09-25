@@ -5,9 +5,9 @@
         <parameter name="udid" value="RFCRC08KCAX"></parameter>
         <parameter name="AppiumURL" value="https://dev-in-blr-0.headspin.io:3012/v0/150f14a11db946ffb9505e3175ae9d95/wd/hub"></parameter>
         <classes>
-            <class name="io.headspin.Confest">
-            </class>
-            <class name="io.headspin.Youtube">
+<!--            <class name="io.headspin.ConfestTest">-->
+<!--            </class>-->
+            <class name="io.headspin.YoutubeTest">
             </class>
         </classes>
     </test>

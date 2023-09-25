@@ -6,6 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.headspin.pages.AppiumPages;
+import org.testng.annotations.Parameters;
 
 
 import java.net.MalformedURLException;
